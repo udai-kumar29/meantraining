@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customers</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="library/bootstrap.min.css">
+  <script src="library/jquery.min.js"></script>
+  <script src="library/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-sm-12" align="center" style="background-color: violet">
+<header>
+	<i><h1>Shopping Sector</h1></i>
+	<i><p>Hava a good day</p></i>
+</header>
+</div>
+
+<div class="col-sm-4 col-md-4 " >
+
+    <h1 align="center" style="padding: 5%; background-color:yellow" >Customers Details</h1> 
+
+     <img src="img/customer.jpg" class="img-circle" alt="Cinque Terre" width="404" height="150">      
+ 
+ <h1> <div >Register your details</div></h1>
+ <form>
+<p>Name: <span class="glyphicon glyphicon-user"></span></p><input type="text" id="name" class="form-control" required placeholder="Enter Name"><br>
+ <p>Mobile : <span class="glyphicon glyphicon-phone"></span></p><input type="text" id="mobile" required class="form-control" placeholder="Enter Mobile"><br>
+
+<p>Email-Id : <span class="glyphicon glyphicon-envelope"></span></p><input type="text" id="email" required class="form-control" placeholder="Enter Email"><br>
+
+</form>
+
+
+<button id='submit' class="btn btn-primary" onclick="addCustomer()">Submit</button>
+</div>
+<div class="col-sm-8 col-md-8 " style="background-color: pink">
+<h1 align="center">----------Customer Data Sheet-----------</h1> 
+
+
+
+<div id="result" align="center"></div>
+</div>
+<div class="col-sm-12" align="center" style="background-color: lightblue">
+<footer>
+	<h3>Thank You</h3>
+	<p>Visit Again</p>
+
+</footer>
+</div>
+<script type="text/javascript">
+	var customerList = [];
+	
+	function deleteToDo()
+	{
+		console.log('index to be removed '+index);
+		todolist.splice(index);
+		console.log('after removal ' +todolist);
+	}
+	/*
+	Adds customer to CustomerList
+	*/
+
+	function addCustomer()
+	{
+
+		var name = document.getElementById("name").value;
+		var mobile = document.getElementById("mobile").value;
+		var email = document.getElementById("email").value;
+		var cust = new Customer(name,mobile,email);
+		var status = validateData(cust);
+		if (status ==false)
+			return;
+		var count = customerList.push(cust);
+		console.log('count ',count);
+		console.log('customer list ',customerList);
+		displayCustomers(cust,count);
+	}
+	function Customer(name,mobile,email)
+	{
+		this.name= name;
+		this.mobile = mobile;
+		this.email = email;
+	}
+	function validateData(cust){
+		if (cust.name =="")
+		{
+			alert("Please enter your name ");
+			document.getElementById("name").focus();
+			return false;
+		}
+		if (cust.mobile =="")
+		{
+			alert("Please enter your mobile number ");
+			document.getElementById("mobile").focus();
+			return false;
+		}
+		if (cust.email =="")
+		{
+			alert("Please enter your email ");
+			document.getElementById("email").focus();
+			return false;
+		}
+		if (cust.email.indexOf("@", 0) < 0)				 
+		{ 
+			window.alert("Please enter a valid e-mail address."); 
+			email.focus(); 
+			return false; 
+		}
+	}
+	function displayCustomers(cust,count){
+		var result = '';
+		var outerdiv = document.getElementById("result");
+		var custdiv = document.createElement("div");
+		var name = document.createElement("input");
+		var mobile = document.createElement("input");
+		var email = document.createElement("input");
+		var edit = document.createElement("button");
+		var del = document.createElement("button");
+		var brk = document.createElement("br")
+		custdiv.setAttribute("id",count);
+		edit.setAttribute("id",count);
+		del.setAttribute("id",count);
+		// name
+		name.type = "text";
+		name.value = cust.name;
+		// mobile
+		mobile.type = "text";
+		mobile.value = cust.mobile;
+		// email
+		email.type = "text";
+		email.value = cust.email;
+		edit.innerText ="Edit";
+		del.innerText ="Delete";
+		custdiv.appendChild(name);
+		custdiv.appendChild(mobile);
+		custdiv.appendChild(email);
+		custdiv.appendChild(edit);
+		custdiv.appendChild(del);
+		custdiv.appendChild(brk);
+		outerdiv.append(custdiv);
+		edit.addEventListener("click",editCustomer);
+		del.addEventListener("click",deleteCustomer);	
+		
+	}
+	function editCustomer(){
+		console.log('edit clicked');
+		var editedValue='';
+
+		console.log(this.parentNode.firstChild.innerHTML);
+	//	edit = this.parentNode.firstChild;
+		count =event.srcElement.id;
+	//	editedValue = todoedit.value;
+		var par = this.parentNode;
+		console.log('parent ',par);
+		var editedName = par.childNodes[0].value;
+		var editedMobile = par.childNodes[1].value;
+		var editedEmail = par.childNodes[2].value;
+		console.log(' name : ',editedName, ' mobile :',editedMobile,' email :',editedEmail);
+		var editedCustomer = new Customer(editedName,editedMobile,editedEmail);
+	
+		customerList[count-1] = editedCustomer;
+		console.log('customerList after update :',customerList);
+	}
+	function deleteCustomer(){
+		console.log('delete clicked');
+		console.log(event.srcElement.id);
+		console.log(this.parentNode);
+		count = event.srcElement.id;
+		var pare = this.parentNode;
+		pare.remove();
+		customerList.splice(count-1,1);
+		console.log('after deletion :',customerList);
+	}
+</script>
+</body>
+</html>

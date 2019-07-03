@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prime OR Not</title>
+</head>
+<body>
+	<h1>Prime Or Not</h1>
+	<script type="text/javascript">
+		function prime(n){
+		
+				flag = false;
+        for(i = 2; i <= n/2; ++i)
+        {
+            
+            if(n % i == 0)
+            {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag)
+            console.log(" is a prime number");
+        else
+            console.log(" is not a prime number");
+    }
+    prime(2);
+
+
+	</script>
+
+</body>
+</html>
