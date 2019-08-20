@@ -1,0 +1,128 @@
+<fieldset disabled="disabled">
+    <center>
+
+        <style type="text/css">
+            table {
+                background-color: #B0E0E6;
+                text-align: center;
+            }
+
+            th,
+            tr {
+                text-align: center;
+            }
+
+            .data {
+                width: 40%;
+                background-color: white;
+
+            }
+        </style>
+        <form name="Schoolform">
+            <md-content class="data">
+
+
+
+                <md-input-container style="width: 50%">
+                    <label>Enter Your Name</label>
+                    <md-icon> people</md-icon>
+                    <input id="name" name="name" ng-model="StudentData.name" required>
+
+                </md-input-container><br>
+
+                <md-input-container style="width: 50%">
+                    <label>Standard</label>
+                    <md-icon>view_list</md-icon>
+                    <md-select ng-model="StudentData.standard" name="std" required>
+                        <md-option ng-repeat="standard in standards" value="{{standard.abbrev}}">
+                            {{standard.abbrev}}
+                        </md-option>
+
+                    </md-select>
+                </md-input-container><br>
+
+                <md-input-container style="width: 50%">
+                    <label>Section</label>
+                    <md-icon>view_list</md-icon>
+                    <md-select ng-model="StudentData.section" name="sec" required>
+                        <md-option ng-repeat="section in sections" value="{{section.abbrev}}">
+                            {{section.abbrev}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </md-content>
+
+            <h4><label>Add Mark details</label></h4>
+
+            <br><br>
+
+
+
+            <table mat-table border="2px solid " width="50%" padding="30">
+                <tr>
+                    <th>Exams</th>
+                    <th>Tamil</th>
+                    <th>English</th>
+                    <th>Maths</th>
+                    <th>science</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                <tr ng-repeat="mark in StudentData.markDetails">
+
+                    <td>
+                        <md-select name="type" ng-model="mark.exams" required>
+                            <md-option value="mid-term-1">mid-term-1</md-option>
+                            <md-option value="quaterly">quaterly</md-option>
+                            <md-option value="mid-term-2">mid-term-2</md-option>
+                            <md-option value="halfyearly">halfyearly</md-option>
+                            <md-option value="mid-term-3">mid-term-3</md-option>
+                            <md-option value="annual">annual</md-option>
+                        </md-select>
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input type="number" ng-model="mark.tamil" ng-change="total($index)" min="0" max="100"
+                                required>
+                        </md-input-container>
+
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input type="number" ng-model="mark.english" ng-change="total($index)" min="0" max="100"
+                                required>
+                        </md-input-container>
+
+
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input type="number" ng-model="mark.maths" ng-change="total($index)" min="0" max="100"
+                                required>
+                        </md-input-container>
+
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input type="number" ng-model="mark.science" ng-change="total($index)" min="0" max="100"
+                                required>
+                        </md-input-container>
+
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input type="number" ng-model="mark.total" readonly>
+                        </md-input-container>
+
+                    </td>
+                </tr>
+
+            </table mat-table>
+    </center>
+</fieldset>
+<div>
+    <md-button ng-click="cancel()" class="md-raised md-default"><i aria-hidden="true"></i>&nbspCancel
+    </md-button>
+</div>
+
+</form>

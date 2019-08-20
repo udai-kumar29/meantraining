@@ -1,0 +1,109 @@
+<style></style>
+<center>
+
+    <style type="text/css">
+        th,
+        tr {
+            text-align: center;
+            padding: 1.5%;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table {
+            background-color: #FFE4C4;
+        }
+
+        .school {
+            width: 70%;
+            height: 10%;
+            background-color: white;
+            padding: 0.2%;
+            border: 1px solid gray;
+        }
+      
+    </style>
+
+
+    <h1 align="center">School List <span class="label label-info">{{ StudentData.length }}</span></h1>
+    <div align="center">Welcome to School Data-Base</div>
+
+
+    <md-content class="school">
+        <md-input-container style="width: 50%">
+            <label>Enter Your Name To Search</label>
+            <md-icon> people</md-icon>
+            <input ng-model="studetails.searchDetails">
+        </md-input-container>
+
+        <md-input-container style="width: 20%">
+            <label>Std</label>
+            <md-icon>view_list</md-icon>
+            <md-select ng-model="studetails.searchDetailstd">
+                <md-option ng-repeat="standard in standards" value="{{standard.abbrev}}">
+                    {{standard.abbrev}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container style="width: 20%">
+            <label>Sec</label>
+            <md-icon>view_list</md-icon>
+            <md-select ng-model="studetails.searchDetailsec">
+                <md-option ng-repeat="section in sections" value="{{section.abbrev}}">
+                    {{section.abbrev}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </md-content><br>
+
+
+    <label>Search</label>
+    <md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="search()">
+        <md-icon style="color: greenyellow;">search</md-icon>
+    </md-button>
+
+
+    <label>Clear</label>
+    <md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="clear()">
+        <md-icon style="color: greenyellow;">clear</md-icon>
+    </md-button>
+
+    <label>New Student</label>
+    <md-button class="md-fab md-mini md-primary" aria-label="Use Android" ng-click="addNew()">
+        <md-icon style="color: greenyellow;">group_add</md-icon>
+    </md-button><br><br>
+
+
+
+    <table mat-table border="2px solid black " width="70%">
+            
+      
+            
+        <tr>
+            <th>Standard</th>
+            <th>Name</th>
+            <th>Section</th>
+            <th colspan="3">Control</th>
+
+        </tr>
+        <tr ng-repeat="student in StudentData">
+            <td>{{student.standard}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.section}}</td>
+            <td>
+                <md-button class="md-primary md-raised" ng-click="modify(student._id)">Modify </md-button>
+            </td>
+            <td>
+                <md-button class="md-primary md-raised" ng-click="deleteStudent(student._id)"> Delete</md-button>
+            </td>
+            <td>
+                <md-button class="md-primary md-raised" ng-click="show(student._id)">Details</md-button>
+            </td>
+
+        </tr>
+    </table mat-table>
+</center>
